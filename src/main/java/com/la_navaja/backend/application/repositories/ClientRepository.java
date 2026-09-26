@@ -1,19 +1,18 @@
 package com.la_navaja.backend.application.repositories;
 
+import com.la_navaja.backend.domain.models.Client;
 import java.util.List;
 import java.util.Optional;
 
-import com.la_navaja.backend.domain.models.Client;
-
 public interface ClientRepository {
 
-    Client save(Client client);
+  Client save(Client client);
 
-    Optional<Client> findById(Long id);
+  Optional<Client> findById(Long id);
 
-    List<Client> findAll();
+  List<Client> findAll();
 
-    void deleteById(Long id);
+  void deleteById(Long id);
 
-    boolean existsById(Long id);
+  boolean existsById(Long id);
 }

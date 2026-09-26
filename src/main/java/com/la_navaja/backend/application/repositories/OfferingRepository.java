@@ -1,19 +1,18 @@
 package com.la_navaja.backend.application.repositories;
 
+import com.la_navaja.backend.domain.models.Offering;
 import java.util.List;
 import java.util.Optional;
 
-import com.la_navaja.backend.domain.models.Offering;
-
 public interface OfferingRepository {
 
-    Offering save(Offering offering);
+  Offering save(Offering offering);
 
-    Optional<Offering> findById(Long id);
+  Optional<Offering> findById(Long id);
 
-    List<Offering> findAll();
+  List<Offering> findAll();
 
-    void deleteById(Long id);
+  void deleteById(Long id);
 
-    boolean existsById(Long id);
+  boolean existsById(Long id);
 }

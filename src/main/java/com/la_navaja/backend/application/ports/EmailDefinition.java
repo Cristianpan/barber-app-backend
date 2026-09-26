@@ -6,6 +6,7 @@ import java.util.Map;
  * Define un tipo de correo. {@code T} contiene los datos específicos del envío.
  *
  * <p>Para agregar un correo nuevo:
+ *
  * <ol>
  *   <li>Crear {@code XxxData} record con los datos que necesita la plantilla.
  *   <li>Implementar esta interfaz en {@code XxxEmail}.
@@ -15,10 +16,10 @@ import java.util.Map;
  */
 public interface EmailDefinition<T> {
 
-    /** Nombre del archivo en {@code templates/emails/} (sin extensión). */
-    String template();
+  /** Nombre del archivo en {@code templates/emails/} (sin extensión). */
+  String template();
 
-    String subject(T data);
+  String subject(T data);
 
-    Map<String, Object> toModel(T data);
+  Map<String, Object> toModel(T data);
 }

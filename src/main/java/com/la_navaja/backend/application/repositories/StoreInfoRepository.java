@@ -1,19 +1,18 @@
 package com.la_navaja.backend.application.repositories;
 
+import com.la_navaja.backend.domain.models.StoreInfo;
 import java.util.List;
 import java.util.Optional;
 
-import com.la_navaja.backend.domain.models.StoreInfo;
-
 public interface StoreInfoRepository {
 
-    StoreInfo save(StoreInfo storeInfo);
+  StoreInfo save(StoreInfo storeInfo);
 
-    Optional<StoreInfo> findById(Long id);
+  Optional<StoreInfo> findById(Long id);
 
-    List<StoreInfo> findAll();
+  List<StoreInfo> findAll();
 
-    void deleteById(Long id);
+  void deleteById(Long id);
 
-    boolean existsById(Long id);
+  boolean existsById(Long id);
 }

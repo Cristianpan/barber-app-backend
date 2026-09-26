@@ -1,19 +1,18 @@
 package com.la_navaja.backend.application.repositories;
 
+import com.la_navaja.backend.domain.models.Review;
 import java.util.List;
 import java.util.Optional;
 
-import com.la_navaja.backend.domain.models.Review;
-
 public interface ReviewRepository {
 
-    Review save(Review review);
+  Review save(Review review);
 
-    Optional<Review> findById(Long id);
+  Optional<Review> findById(Long id);
 
-    List<Review> findAll();
+  List<Review> findAll();
 
-    void deleteById(Long id);
+  void deleteById(Long id);
 
-    boolean existsById(Long id);
+  boolean existsById(Long id);
 }

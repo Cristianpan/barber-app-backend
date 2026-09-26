@@ -1,23 +1,23 @@
 package com.la_navaja.backend.infrastructure.schemas;
 
-import java.time.LocalDateTime;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-/** Información pública de la tienda. Fila única; los horarios viven en {@link BusinessHourSchema}. */
+/**
+ * Información pública de la tienda. Fila única; los horarios viven en {@link BusinessHourSchema}.
+ */
 @Entity
 @Table(name = "store_info")
 @Getter
@@ -27,29 +27,28 @@ import lombok.Setter;
 @Builder
 public class StoreInfoSchema {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String history;
+  @Column(columnDefinition = "TEXT")
+  private String history;
 
-    @Column(columnDefinition = "TEXT")
-    private String aboutUs;
+  @Column(columnDefinition = "TEXT")
+  private String aboutUs;
 
-    private String address;
+  private String address;
 
-    private String phone;
+  private String phone;
 
-    private String email;
+  private String email;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+  @CreationTimestamp
+  @Column(nullable = false, updatable = false)
+  private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
+  @UpdateTimestamp private LocalDateTime updatedAt;
 }
