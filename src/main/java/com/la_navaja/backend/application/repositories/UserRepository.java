@@ -1,0 +1,19 @@
+package com.la_navaja.backend.application.repositories;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.la_navaja.backend.domain.models.User;
+
+public interface UserRepository {
+
+    User save(User user);
+
+    Optional<User> findById(Long id);
+
+    List<User> findAll();
+
+    void deleteById(Long id);
+
+    boolean existsById(Long id);
+}

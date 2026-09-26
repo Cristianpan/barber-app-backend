@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: barber_app
+          POSTGRES_USER: barber_app
+          POSTGRES_PASSWORD: barber_app
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U barber_app -d barber_app"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/barber_app
+      SPRING_DATASOURCE_USERNAME: barber_app
+      SPRING_DATASOURCE_PASSWORD: barber_app
+      INITIAL_ADMIN_FIRST_NAME: Admin
+      INITIAL_ADMIN_LAST_NAMES: Barber App
+      INITIAL_ADMIN_EMAIL: admin@example.com
+      INITIAL_ADMIN_PHONE: "+10000000000"
+      INITIAL_ADMIN_PASSWORD: change-me
+      JWT_SECRET: ci-only-jwt-secret-of-at-least-32-characters
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Check code format (Spotless)
+        run: ./mvnw spotless:check
+
+      - name: Build and test
+        run: ./mvnw verify

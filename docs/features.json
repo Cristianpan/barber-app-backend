@@ -1,0 +1,83 @@
+{
+  "_readme": "Features de producto. El humano añade features; los agentes solo cambian 'status' (sin status = pending). Se comparte con el frontend quitando 'status'. Ver docs/specs.md sección 'features.json'.",
+  "features": [
+    {
+      "id": 1,
+      "module": "Auth",
+      "name": "Autenticar usuario por correo y contraseña",
+      "depends_on": [],
+      "acceptance": [
+        "El sistema debe de permitir a un usuario autentificarse a través de su usuario y contraseña",
+        "El mensaje de error debe de ser 'El correo o la contraseña son invalidos', para prevenir errores de seguridad",
+        "Si el error es de servidor o similar, ahí debe devolver un status adecuado",
+        "Al iniciar sesión se debe devolver correo, nombre, rol (roles)"
+      ]
+    },
+    {
+      "id": 2,
+      "module": "employees",
+      "name": "Registrar nuevo empleado",
+      "depends_on": [],
+      "acceptance": [
+        "El sistema debe permitir a un usuario admin, registrar a un nuevo empleado proporcionando nombre, apellidos, correo, teléfono.",
+        "El ROL puede ser enviado o no. Si no se envía, por defecto es EMPLOYEE",
+        "El sistema debe de enviar un correo al usuario con información para generar su contraseña.",
+        "El token debe de tener un tiempo de expiración no mayor a 15 min",
+        "La contraseña debe de tener un mínimo de 8 y máximo de 20 caracteres"
+      ]
+    },
+    {
+      "id": 3,
+      "module": "services",
+      "name": "Crear servicio",
+      "depends_on": [],
+      "acceptance": [
+        "El sistema debe de permitir a un usuario admin registrar un nuevo servicio, proporcionando nombre, descripción, duración en minutos, costo",
+        "El servicio tendra un estatus de habilitado, deshabilitado y por defecto es habilitado tras registrarse",
+        "Solo se puede registrar un servicio con el mismo nombre",
+        "Precio y duración debe de ser mayor a cero"
+      ]
+    },
+    {
+      "id": 4,
+      "module": "auth",
+      "name": "Establecer contraseña con token",
+      "depends_on": [
+        5
+      ],
+      "acceptance": [
+        "El empleado debe poder establecer su contraseña si tiene un token válido. El sistema debe validar que el token sea válido y no haya expirado. Una vez establecida la contraseña, el token no debe poder reutilizarse y el empleado debe poder autenticarse utilizando su nueva contraseña",
+        "La contraseña debe tener un mínimo de 8 caracteres y un máximo de 20"
+      ]
+    },
+    {
+      "id": 5,
+      "module": "store",
+      "name": "Establecer horario",
+      "depends_on": [],
+      "acceptance": [
+        "El administrador debe poder registrar el horario de atención, registrando días que labora, horario de atención por día y establecer hora de descanso si aplica",
+        "El horario de atención puede variar por día, no necesariamente es igual todos los días"
+      ]
+    },
+    {
+      "id": 6,
+      "module": "store",
+      "name": "Establecer información de negocio",
+      "depends_on": [],
+      "acceptance": [
+        "El administrador debe poder registrar la información de su negocio como ubicación, historia, correo, teléfono, sobre nosotros"
+      ]
+    },
+    {
+      "id": 7,
+      "module": "services",
+      "name": "Editar servicio",
+      "depends_on": [],
+      "acceptance": [
+        "El sistema debe de permitir a administrador actualizar los datos de un servicio",
+        "Debe haber un bypass en el update: si el nombre enviado ya existe pero pertenece al mismo servicio que se actualiza, se permite el update"
+      ]
+    }
+  ]
+}
