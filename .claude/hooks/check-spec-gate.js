@@ -65,6 +65,8 @@ function transitionGate(root, f, from, to) {
       if (lib.hasPendingTasks(dir)) return 'done exige todas las tasks en [x].';
       if (!lib.reviewApproved(root)) return `done exige ${lib.REVIEW} con "VERDICT: APPROVED".`;
       return null;
+    case 'done->spec_ready':
+      return null;
     default:
       return `Transición no permitida: ${from} → ${to}.`;
   }

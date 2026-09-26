@@ -5,6 +5,7 @@
       "id": 1,
       "module": "Auth",
       "name": "Autenticar usuario por correo y contraseña",
+      "status": "done",
       "depends_on": [],
       "acceptance": [
         "El sistema debe de permitir a un usuario autentificarse a través de su usuario y contraseña",
