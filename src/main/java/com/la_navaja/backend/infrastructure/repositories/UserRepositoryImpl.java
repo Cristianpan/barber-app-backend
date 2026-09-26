@@ -26,6 +26,11 @@ public class UserRepositoryImpl implements UserRepository {
   }
 
   @Override
+  public Optional<User> findByEmail(String email) {
+    return jpaRepository.findByEmail(email.toLowerCase()).map(mapper::toModel);
+  }
+
+  @Override
   public List<User> findAll() {
     return jpaRepository.findAll().stream().map(mapper::toModel).toList();
   }
