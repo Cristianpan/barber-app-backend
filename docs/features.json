@@ -44,6 +44,7 @@
       "id": 4,
       "module": "auth",
       "name": "Establecer contraseña con token",
+      "status": "done",
       "depends_on": [],
       "acceptance": [
         "El empleado debe poder establecer su contraseña si tiene un token válido. El sistema debe validar que el token sea válido y no haya expirado. Una vez establecida la contraseña, el token no debe poder reutilizarse y el empleado debe poder autenticarse utilizando su nueva contraseña",

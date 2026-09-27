@@ -1,5 +1,6 @@
 package com.la_navaja.backend.infrastructure.controllers;
 
+import com.la_navaja.backend.application.dtos.request.SetPasswordRequest;
 import com.la_navaja.backend.application.dtos.request.SignInRequest;
 import com.la_navaja.backend.application.dtos.response.SignInResponse;
 import com.la_navaja.backend.application.services.AuthService;
@@ -82,5 +83,30 @@ public class AuthController {
 
     return ResponseEntity.ok(
         new SignInResponse(user.email(), user.firstName(), user.lastNames(), user.role()));
+  }
+
+  @Operation(summary = "Set password using invitation token")
+  @ApiResponses({
+    @ApiResponse(responseCode = "204", description = "Password set successfully"),
+    @ApiResponse(
+        responseCode = "400",
+        description =
+            ErrorMessages.INVALID_REQUEST_MESSAGE
+                + " / "
+                + ErrorMessages.INVITATION_TOKEN_INVALID_MESSAGE,
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "404",
+        description = ErrorMessages.INVITATION_TOKEN_NOT_FOUND_MESSAGE,
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "500",
+        description = ErrorMessages.INTERNAL_ERROR_MESSAGE,
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  })
+  @PostMapping("/set-password")
+  public ResponseEntity<Void> setPassword(@Valid @RequestBody SetPasswordRequest request) {
+    authService.setPassword(request);
+    return ResponseEntity.noContent().build();
   }
 }
