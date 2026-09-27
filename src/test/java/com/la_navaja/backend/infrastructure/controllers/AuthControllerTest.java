@@ -2,6 +2,7 @@ package com.la_navaja.backend.infrastructure.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -9,9 +10,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.la_navaja.backend.application.dtos.request.SetPasswordRequest;
 import com.la_navaja.backend.application.dtos.request.SignInRequest;
 import com.la_navaja.backend.application.services.AuthService;
 import com.la_navaja.backend.domain.constants.ErrorMessages;
+import com.la_navaja.backend.domain.exceptions.BadRequestException;
+import com.la_navaja.backend.domain.exceptions.ResourceNotFoundException;
 import com.la_navaja.backend.domain.exceptions.UnauthorizedException;
 import com.la_navaja.backend.domain.models.Role;
 import com.la_navaja.backend.domain.models.User;
@@ -110,6 +114,64 @@ class AuthControllerTest {
     void shouldRejectInvalidRequest() throws Exception {
       mockMvc
           .perform(post("/auth/sign-in").contentType(MediaType.APPLICATION_JSON).content("{}"))
+          .andExpect(status().isBadRequest())
+          .andExpect(jsonPath("$.message").value(ErrorMessages.INVALID_REQUEST_MESSAGE));
+    }
+  }
+
+  @Nested
+  class SetPasswordTests {
+
+    @Test
+    void shouldSetPasswordSuccessfully() throws Exception {
+      mockMvc
+          .perform(
+              post("/auth/set-password")
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(
+                      objectMapper.writeValueAsString(
+                          new SetPasswordRequest("valid-token", "newpassword1"))))
+          .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenTokenNotFound() throws Exception {
+      doThrow(new ResourceNotFoundException(ErrorMessages.INVITATION_TOKEN_NOT_FOUND_MESSAGE))
+          .when(authService)
+          .setPassword(any(SetPasswordRequest.class));
+
+      mockMvc
+          .perform(
+              post("/auth/set-password")
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(
+                      objectMapper.writeValueAsString(
+                          new SetPasswordRequest("bad-token", "newpassword1"))))
+          .andExpect(status().isNotFound())
+          .andExpect(jsonPath("$.message").value(ErrorMessages.INVITATION_TOKEN_NOT_FOUND_MESSAGE));
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenTokenInvalid() throws Exception {
+      doThrow(new BadRequestException(ErrorMessages.INVITATION_TOKEN_INVALID_MESSAGE))
+          .when(authService)
+          .setPassword(any(SetPasswordRequest.class));
+
+      mockMvc
+          .perform(
+              post("/auth/set-password")
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(
+                      objectMapper.writeValueAsString(
+                          new SetPasswordRequest("used-token", "newpassword1"))))
+          .andExpect(status().isBadRequest())
+          .andExpect(jsonPath("$.message").value(ErrorMessages.INVITATION_TOKEN_INVALID_MESSAGE));
+    }
+
+    @Test
+    void shouldRejectInvalidRequest() throws Exception {
+      mockMvc
+          .perform(post("/auth/set-password").contentType(MediaType.APPLICATION_JSON).content("{}"))
           .andExpect(status().isBadRequest())
           .andExpect(jsonPath("$.message").value(ErrorMessages.INVALID_REQUEST_MESSAGE));
     }
