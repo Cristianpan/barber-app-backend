@@ -30,21 +30,38 @@ public class SecurityConfig {
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(
-            auth -> auth.requestMatchers(PUBLIC_PATTERNS).permitAll().anyRequest().authenticated())
+            auth ->
+                auth.requestMatchers(PUBLIC_PATTERNS)
+                    .permitAll()
+                    .requestMatchers("/employees/**")
+                    .hasRole("ADMIN")
+                    .anyRequest()
+                    .authenticated())
         .addFilterBefore(cookieAuthFilter, UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling(
             ex ->
                 ex.authenticationEntryPoint(
-                    (request, response, authException) -> {
-                      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                      response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                      response
-                          .getWriter()
-                          .write(
-                              "{\"message\":\""
-                                  + ErrorMessages.UNAUTHORIZED_MESSAGE
-                                  + "\",\"body\":null}");
-                    }));
+                        (request, response, authException) -> {
+                          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                          response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                          response
+                              .getWriter()
+                              .write(
+                                  "{\"message\":\""
+                                      + ErrorMessages.UNAUTHORIZED_MESSAGE
+                                      + "\",\"body\":null}");
+                        })
+                    .accessDeniedHandler(
+                        (request, response, accessDeniedException) -> {
+                          response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                          response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                          response
+                              .getWriter()
+                              .write(
+                                  "{\"message\":\""
+                                      + ErrorMessages.FORBIDDEN_MESSAGE
+                                      + "\",\"body\":null}");
+                        }));
     return http.build();
   }
 }

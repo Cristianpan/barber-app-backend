@@ -9,4 +9,6 @@ public final class ErrorMessages {
   public static final String UNAUTHORIZED_MESSAGE = "No autorizado";
   public static final String INVALID_REQUEST_MESSAGE = "Solicitud inválida";
   public static final String INTERNAL_ERROR_MESSAGE = "Error interno";
+  public static final String EMAIL_ALREADY_EXISTS_MESSAGE = "El correo ya está registrado";
+  public static final String FORBIDDEN_MESSAGE = "Acceso denegado";
 }
