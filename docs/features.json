@@ -18,6 +18,7 @@
       "id": 2,
       "module": "employees",
       "name": "Registrar nuevo empleado",
+      "status": "done",
       "depends_on": [],
       "acceptance": [
         "El sistema debe permitir a un usuario admin, registrar a un nuevo empleado proporcionando nombre, apellidos, correo, teléfono.",
