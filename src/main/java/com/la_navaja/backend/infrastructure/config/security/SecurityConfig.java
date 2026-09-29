@@ -35,6 +35,8 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers("/employees/**")
                     .hasRole("ADMIN")
+                    .requestMatchers("/services/**")
+                    .hasRole("ADMIN")
                     .anyRequest()
                     .authenticated())
         .addFilterBefore(cookieAuthFilter, UsernamePasswordAuthenticationFilter.class)

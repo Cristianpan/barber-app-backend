@@ -15,4 +15,6 @@ public interface OfferingRepository {
   void deleteById(Long id);
 
   boolean existsById(Long id);
+
+  Optional<Offering> findByNormalizedName(String normalizedName);
 }
