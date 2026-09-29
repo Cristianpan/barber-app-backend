@@ -17,4 +17,5 @@ public final class ErrorMessages {
       "El token de invitación no es válido o ha expirado";
   public static final String SERVICE_NAME_ALREADY_EXISTS_MESSAGE =
       "El nombre del servicio ya está registrado";
+  public static final String INVALID_STORE_SCHEDULE_MESSAGE = "El horario enviado no es válido";
 }

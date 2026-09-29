@@ -56,6 +56,7 @@
       "id": 5,
       "module": "store",
       "name": "Establecer horario",
+      "status": "done",
       "depends_on": [],
       "acceptance": [
         "El administrador debe poder registrar el horario de atención, registrando días que labora, horario de atención por día y establecer hora de descanso si aplica",

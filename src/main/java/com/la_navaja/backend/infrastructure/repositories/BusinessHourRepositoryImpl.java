@@ -39,4 +39,9 @@ public class BusinessHourRepositoryImpl implements BusinessHourRepository {
   public boolean existsById(Long id) {
     return jpaRepository.existsById(id);
   }
+
+  @Override
+  public void deleteAll() {
+    jpaRepository.deleteAll();
+  }
 }
