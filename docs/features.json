@@ -32,6 +32,7 @@
       "id": 3,
       "module": "services",
       "name": "Crear servicio",
+      "status": "done",
       "depends_on": [],
       "acceptance": [
         "El sistema debe de permitir a un usuario admin registrar un nuevo servicio, proporcionando nombre, descripción, duración en minutos, costo",

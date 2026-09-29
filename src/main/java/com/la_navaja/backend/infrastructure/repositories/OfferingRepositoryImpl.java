@@ -39,4 +39,9 @@ public class OfferingRepositoryImpl implements OfferingRepository {
   public boolean existsById(Long id) {
     return jpaRepository.existsById(id);
   }
+
+  @Override
+  public Optional<Offering> findByNormalizedName(String normalizedName) {
+    return jpaRepository.findByNormalizedName(normalizedName).map(mapper::toModel);
+  }
 }

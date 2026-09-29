@@ -15,4 +15,6 @@ public final class ErrorMessages {
       "El token de invitación no ha sido encontrado";
   public static final String INVITATION_TOKEN_INVALID_MESSAGE =
       "El token de invitación no es válido o ha expirado";
+  public static final String SERVICE_NAME_ALREADY_EXISTS_MESSAGE =
+      "El nombre del servicio ya está registrado";
 }
