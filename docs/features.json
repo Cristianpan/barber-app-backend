@@ -66,6 +66,7 @@
       "id": 6,
       "module": "store",
       "name": "Establecer información de negocio",
+      "status": "done",
       "depends_on": [],
       "acceptance": [
         "El administrador debe poder registrar la información de su negocio como ubicación, historia, correo, teléfono, sobre nosotros"

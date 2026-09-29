@@ -37,6 +37,8 @@ public class SecurityConfig {
                     .hasRole("ADMIN")
                     .requestMatchers("/services/**")
                     .hasRole("ADMIN")
+                    .requestMatchers("/store/**")
+                    .hasRole("ADMIN")
                     .anyRequest()
                     .authenticated())
         .addFilterBefore(cookieAuthFilter, UsernamePasswordAuthenticationFilter.class)
